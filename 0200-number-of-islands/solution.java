@@ -1,40 +1,39 @@
 class Solution {
     public int numIslands(char[][] grid) {
-        
-        if(grid.length == 0 || grid == null)
+        // no of rows
+        int rows = grid.length;
+        //boundary condition if grid is empty
+        if (rows == 0)
             return 0;
+        //no of columns
+        int cols = grid[0].length;
         
-        int nr = grid.length;
-        int nc = grid[0].length;
-        int no_of_Island = 0;
-        
-        for(int i=0;i<nr;i++)
+        int no_of_islands = 0;
+        for(int i=0;i<rows;i++)
         {
-            for(int j=0;j<nc;j++)
+            for(int j=0;j<cols;j++)
             {
                 if(grid[i][j] == '1')
                 {
-                    no_of_Island++;
-                    helper(grid,i,j);
+                    markIslands(grid,i,j,rows,cols);
+                    no_of_islands += 1;
                 }
             }
         }
-        return no_of_Island;
+        return no_of_islands;
+    
     }
     
-    public void helper(char[][] grid, int r,int c)
+    public void markIslands(char[][] matrix,int x,int y,int r,int c)
     {
-        int nr = grid.length;
-        int nc = grid[0].length;
-        
-        if(r<0 || c<0 || r>=nr || c>=nc || grid[r][c] =='0' || grid[r][c] =='2')
+        if(x<0 || x>=r || y<0 || y>=c || matrix[x][y] != '1')
             return;
+        matrix[x][y] = '2';
         
-        grid[r][c] = '2';
-        helper(grid,r-1,c);  //top
-        helper(grid,r+1,c);  //bottom
-        helper(grid,r,c-1);  //left
-        helper(grid,r,c+1);  //right
-        
+        markIslands(matrix,x-1,y,r,c);
+        markIslands(matrix,x,y+1,r,c);
+        markIslands(matrix,x+1,y,r,c);
+        markIslands(matrix,x,y-1,r,c);
+            
     }
 }
