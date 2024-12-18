@@ -1,17 +1,13 @@
 class Solution {
     public int removeDuplicates(int[] nums) {
-        int len=nums.length;
-        int k=0;
-        int dup=0;
-        while(k<len-1){
-            while(k<len-1 && nums[k]==nums[k+1]){
-                nums[k]=200;
-                dup++;
-                k++;
+        int k=nums.length;
+        for(int i=0;i<nums.length - 1; i++){
+            if(nums[i] == nums[i+1]){
+                nums[i]=200;
+                k--;
             }
-            k++;
         }
         Arrays.sort(nums);
-        return len-dup;
+        return k;
     }
 }
