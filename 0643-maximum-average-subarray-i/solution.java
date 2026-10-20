@@ -1,22 +1,17 @@
 class Solution {
     public double findMaxAverage(int[] nums, int k) {
-        Set<Integer> sum_set = new HashSet<>();
-        int sum =0;
-        int count=0;
-        for(int r=0,l=0; r<nums.length; r++){
-            while(count<k){
-                sum = sum + nums[r];
-                count++;
-                r++;
-            }
-            sum_set.add(sum);
-            sum= sum - nums[l];
-            if(l<nums.length-k){
-            l++;
-            count--;
-            r--;
-            }
+        int sum=0;
+        for(int i=0; i<k; i++)
+        {
+            sum = sum + nums[i];
         }
-        return (double) Collections.max(sum_set)/k;
+        int max_sum = sum;
+
+        for(int i=k; i<nums.length; i++){
+            sum = sum - nums[i-k] + nums[i];
+            max_sum = Math.max(max_sum, sum);        
+        }
+
+        return (double)max_sum/k;
     }
 }
